@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEONCORE | Gamer Sign-Up Form</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <main class="panel" id="panel">
+    <!-- Brand side -->
+    <section class="brand" aria-labelledby="brand-title">
+      <p class="logo"><span class="logo-mark" aria-hidden="true">◆</span> NEONCORE</p>
+      <h1 id="brand-title">Join the <span class="glow">grid</span>.</h1>
+      <p class="brand-copy">Ranked ladders, weekly tournaments and squads that actually show up. Create your operator profile to start competing.</p>
+
+      <div class="operator" aria-hidden="true">
+        <p class="operator-label">Operator ID</p>
+        <p class="operator-id" id="operator-id">NC-0000-<span>UNASSIGNED</span></p>
+      </div>
+
+      <ul class="perks">
+        <li>Free ranked season pass</li>
+        <li>Cross-platform matchmaking</li>
+        <li>Anti-cheat protected lobbies</li>
+      </ul>
+    </section>
+
+    <!-- Form side -->
+    <section class="form-side">
+      <form id="signup-form" novalidate aria-labelledby="form-title">
+        <h2 id="form-title">Create your account</h2>
+        <p class="form-sub">All fields are required.</p>
+
+        <div class="field" data-field="gamertag">
+          <label for="gamertag">Gamertag</label>
+          <p class="hint" id="gamertag-hint">3–16 characters. Letters, numbers and underscores.</p>
+          <input id="gamertag" name="gamertag" type="text" autocomplete="username" maxlength="16"
+                 aria-describedby="gamertag-hint gamertag-error" spellcheck="false" />
+          <p class="error" id="gamertag-error"></p>
+        </div>
+
+        <div class="field" data-field="email">
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" autocomplete="email"
+                 aria-describedby="email-error" spellcheck="false" />
+          <p class="error" id="email-error"></p>
+        </div>
+
+        <div class="field" data-field="password">
+          <label for="password">Password</label>
+          <p class="hint" id="password-hint">At least 8 characters with an uppercase letter, a lowercase letter and a number.</p>
+          <div class="pw-wrap">
+            <input id="password" name="password" type="password" autocomplete="new-password"
+                   aria-describedby="password-hint password-strength-text password-caps password-error" />
+            <button type="button" class="toggle-pw" data-target="password" aria-pressed="false" aria-label="Show password">
+              <svg class="eye-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="eye-closed" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.9 17.9A10.4 10.4 0 0 1 12 19C5 19 1 12 1 12a18.5 18.5 0 0 1 5.1-5.9M9.9 5.2A9.6 9.6 0 0 1 12 5c7 0 11 7 11 7a18.6 18.6 0 0 1-2.2 3.2M14.1 14.1a3 3 0 1 1-4.2-4.2"/><path d="M1 1l22 22"/></svg>
+            </button>
+          </div>
+          <div class="strength" data-level="0">
+            <div class="strength-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <p class="strength-text" id="password-strength-text" aria-live="polite">Strength: —</p>
+          </div>
+          <p class="caps" id="password-caps" hidden>⚠ Caps Lock is on</p>
+          <p class="error" id="password-error"></p>
+        </div>
+
+        <div class="field" data-field="confirm">
+          <label for="confirm">Confirm password</label>
+          <div class="pw-wrap">
+            <input id="confirm" name="confirm" type="password" autocomplete="new-password"
+                   aria-describedby="confirm-caps confirm-error" />
+            <button type="button" class="toggle-pw" data-target="confirm" aria-pressed="false" aria-label="Show confirm password">
+              <svg class="eye-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="eye-closed" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.9 17.9A10.4 10.4 0 0 1 12 19C5 19 1 12 1 12a18.5 18.5 0 0 1 5.1-5.9M9.9 5.2A9.6 9.6 0 0 1 12 5c7 0 11 7 11 7a18.6 18.6 0 0 1-2.2 3.2M14.1 14.1a3 3 0 1 1-4.2-4.2"/><path d="M1 1l22 22"/></svg>
+            </button>
+          </div>
+          <p class="caps" id="confirm-caps" hidden>⚠ Caps Lock is on</p>
+          <p class="error" id="confirm-error"></p>
+        </div>
+
+        <div class="field field-check" data-field="terms">
+          <div class="check-row">
+            <input id="terms" name="terms" type="checkbox" aria-describedby="terms-error" />
+            <label for="terms">I agree to the <a href="#terms-info">Terms of Service</a> and <a href="#privacy-info">Privacy Policy</a>.</label>
+          </div>
+          <p class="error" id="terms-error"></p>
+        </div>
+
+        <button type="submit" class="submit" id="submit">
+          <span class="spinner" aria-hidden="true"></span>
+          <span class="submit-label">Create account</span>
+        </button>
+
+        <p class="sr-only" id="form-status" role="status" aria-live="polite"></p>
+        <p class="login">Already an operator? <a href="#login">Log in</a></p>
+      </form>
+
+      <!-- Success state -->
+      <div class="success" id="success" hidden>
+        <svg class="hex-check" viewBox="0 0 120 120" aria-hidden="true">
+          <polygon class="hex" points="60,6 107,33 107,87 60,114 13,87 13,33" />
+          <polyline class="check" points="38,62 53,77 84,45" />
+        </svg>
+        <h2 id="success-title" tabindex="-1">Welcome to NEONCORE</h2>
+        <p>Your account is live, <strong id="success-name">operator</strong>. Check <strong id="success-email">your inbox</strong> to verify your email.</p>
+        <p class="success-id">Operator ID: <span id="success-id"></span></p>
+        <button type="button" class="submit ghost" id="reset">Back to form</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
