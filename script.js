@@ -21,31 +21,31 @@ let isSubmitting = false;
 const validators = {
   gamertag(v) {
     v = v.trim();
-    if (!v) return "Enter a gamertag.";
-    if (v.length < 3) return "Gamertag must be at least 3 characters.";
-    if (!/^[A-Za-z0-9_]+$/.test(v)) return "Use only letters, numbers and underscores.";
+    if (!v) return "Escribe un gamertag.";
+    if (v.length < 3) return "El gamertag debe tener al menos 3 caracteres.";
+    if (!/^[A-Za-z0-9_]+$/.test(v)) return "Usa solo letras, números y guiones bajos.";
     return "";
   },
   email(v) {
     v = v.trim();
-    if (!v) return "Enter your email address.";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return "Enter a valid email, like name@example.com.";
+    if (!v) return "Escribe tu correo electrónico.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return "Escribe un correo válido, por ejemplo nombre@ejemplo.com.";
     return "";
   },
   password(v) {
-    if (!v) return "Create a password.";
-    if (v.length < 8) return "Password must be at least 8 characters.";
+    if (!v) return "Crea una contraseña.";
+    if (v.length < 8) return "La contraseña debe tener al menos 8 caracteres.";
     if (!/[A-Z]/.test(v) || !/[a-z]/.test(v) || !/\d/.test(v))
-      return "Include an uppercase letter, a lowercase letter and a number.";
+      return "Incluye una mayúscula, una minúscula y un número.";
     return "";
   },
   confirm(v) {
-    if (!v) return "Confirm your password.";
-    if (v !== fields.password.value) return "Passwords don't match.";
+    if (!v) return "Confirma tu contraseña.";
+    if (v !== fields.password.value) return "Las contraseñas no coinciden.";
     return "";
   },
   terms(_, el) {
-    return el.checked ? "" : "You must accept the terms to continue.";
+    return el.checked ? "" : "Debes aceptar los términos para continuar.";
   },
 };
 
@@ -83,7 +83,7 @@ Object.entries(fields).forEach(([name, el]) => {
 /* ---------- Password strength ---------- */
 const strengthWrap = document.querySelector(".strength");
 const strengthText = document.getElementById("password-strength-text");
-const LEVELS = ["—", "Weak", "Fair", "Good", "Strong"];
+const LEVELS = ["—", "Débil", "Regular", "Buena", "Fuerte"];
 
 function scorePassword(pw) {
   if (!pw) return 0;
@@ -103,7 +103,7 @@ fields.password.addEventListener("input", () => {
   // Debounce the text so screen readers don't announce every keystroke
   clearTimeout(strengthTimer);
   strengthTimer = setTimeout(() => {
-    strengthText.textContent = `Strength: ${LEVELS[level]}`;
+    strengthText.textContent = `Seguridad: ${LEVELS[level]}`;
   }, 400);
 });
 
@@ -114,8 +114,8 @@ document.querySelectorAll(".toggle-pw").forEach((btn) => {
     const show = input.type === "password";
     input.type = show ? "text" : "password";
     btn.setAttribute("aria-pressed", String(show));
-    const label = btn.dataset.target === "confirm" ? "confirm password" : "password";
-    btn.setAttribute("aria-label", `${show ? "Hide" : "Show"} ${label}`);
+    const label = btn.dataset.target === "confirm" ? "confirmación de contraseña" : "contraseña";
+    btn.setAttribute("aria-label", `${show ? "Ocultar" : "Mostrar"} ${label}`);
   });
 });
 
@@ -139,7 +139,7 @@ function hash(str) {
 }
 function operatorId() {
   const tag = fields.gamertag.value.trim().toUpperCase().replace(/[^A-Z0-9_]/g, "");
-  return tag ? { num: hash(tag), tag } : { num: "0000", tag: "UNASSIGNED" };
+  return tag ? { num: hash(tag), tag } : { num: "0000", tag: "SIN ASIGNAR" };
 }
 fields.gamertag.addEventListener("input", () => {
   const { num, tag } = operatorId();
@@ -162,7 +162,7 @@ form.addEventListener("submit", (e) => {
   const invalid = results.filter(([, ok]) => !ok);
 
   if (invalid.length) {
-    statusEl.textContent = `Please fix ${invalid.length} ${invalid.length === 1 ? "error" : "errors"} in the form.`;
+    statusEl.textContent = `Corrige ${invalid.length} ${invalid.length === 1 ? "error" : "errores"} en el formulario.`;
     fields[invalid[0][0]].focus();
     if (!reduceMotion.matches) {
       panel.classList.remove("shake");
@@ -177,8 +177,8 @@ form.addEventListener("submit", (e) => {
   submitBtn.classList.add("loading");
   submitBtn.setAttribute("aria-disabled", "true");
   form.setAttribute("aria-busy", "true");
-  submitLabel.textContent = "Creating account…";
-  statusEl.textContent = "Creating your account, please wait.";
+  submitLabel.textContent = "Creando cuenta…";
+  statusEl.textContent = "Creando tu cuenta, espera un momento.";
 
   setTimeout(showSuccess, 1800);
 });
@@ -208,10 +208,10 @@ document.getElementById("reset").addEventListener("click", () => {
   submitBtn.classList.remove("loading");
   submitBtn.removeAttribute("aria-disabled");
   form.removeAttribute("aria-busy");
-  submitLabel.textContent = "Create account";
+  submitLabel.textContent = "Crear cuenta";
   statusEl.textContent = "";
   strengthWrap.dataset.level = 0;
-  strengthText.textContent = "Strength: —";
+  strengthText.textContent = "Seguridad: —";
   Object.keys(fields).forEach((n) => {
     fields[n].removeAttribute("aria-invalid");
     fields[n].closest(".field").classList.remove("valid");
